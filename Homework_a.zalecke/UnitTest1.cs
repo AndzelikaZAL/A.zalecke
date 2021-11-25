@@ -62,7 +62,10 @@ namespace a.zalecke_homework
             IWebElement confirm_btn = Driver.FindElement(By.ClassName("button btn btn-default button-medium"));
             confirm_btn.Click();
 
-            Assert.AreEqual("??",???, "Error");
+            IWebElement confirmationpage = Driver.FindElement(By.Id("order-confirmation"));
+            string productconfirmed = confirmationpage.GetAttribute("id");
+            Assert.AreEqual("order-confirmation", productconfirmed, "Error message: product page not found");
+
         }
 
 
@@ -78,22 +81,24 @@ namespace a.zalecke_homework
             homePage.ClickLoginButton();
             loginPage.DoLoginProcess();
         }
+
+        public void DoLogin()
+        {
+            IWebElement email_txt = Driver.FindElement(By.Name("email"));
+            email_txt.SendKeys("email");
+
+            IWebElement password_txt = Driver.FindElement(By.Name("passwd"));
+            password_txt.SendKeys("password");
+
+            IWebElement signin_btn = Driver.FindElement(By.Name("SubmitLogin"));
+            signin_btn.Click();
+            Assert.AreEqual("SubmitLogin", signin_btn.Text, "Error message: credentials are invalid");
+
+        }
+
+
+
     }
 
 }
-//-------------------------------------------------------------------
-public void DoLogin()
-{
-    IWebElement email_txt = Driver.FindElement(By.Name("email"));
-    email_txt.SendKeys("email");
 
-    IWebElement password_txt = Driver.FindElement(By.Name("passwd"));
-    password_txt.SendKeys("password");
-
-    IWebElement signin_btn = Driver.FindElement(By.Name("SubmitLogin"));
-    signin_btn.Click();
-    Assert.AreEqual("SubmitLogin", signin_btn.Text, "Error message: credentials are invalid");
-
-       }
-   }
-}
